@@ -1,4 +1,5 @@
-import { Navbar, Container, Nav, NavDropdown, Form, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown, Button } from "react-bootstrap";
+import CartWidget from './CartWidget/CartWidget';
 
 function NavBar() {
   return (
@@ -15,13 +16,9 @@ function NavBar() {
                     />{' '}
                     Modachi
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
                         <Nav.Link href="#action1">Inicio</Nav.Link>
                         <Nav.Link href="#action2">Ofertas</Nav.Link>
                         <NavDropdown title="Categorias" id="navbarScrollingDropdown">
@@ -40,9 +37,10 @@ function NavBar() {
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    <Form className="d-flex">
-                        <Button variant="outline-info">Login</Button>
-                    </Form>
+                    <Nav>
+                        <Nav.Link><CartWidget cartItems="4"></CartWidget></Nav.Link>
+                        <Nav.Link><Button variant="outline-info">Login</Button></Nav.Link>
+                    </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
