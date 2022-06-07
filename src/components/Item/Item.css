@@ -1,0 +1,17 @@
+.Item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.img-thumbnail{
+    margin: 5px;
+}
+
+.btn-detalle-producto{
+    width: 60%;
+}
