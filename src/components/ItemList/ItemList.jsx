@@ -5,7 +5,8 @@ function ItemList({grettings, setCantCarrito}) {
     return (
         grettings.map(item => {
             return (
-                <Item item= {item} 
+                <Item key={item.Key}
+                      item= {item} 
                       setCantCarrito= {setCantCarrito} />
             );
         })

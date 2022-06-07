@@ -3,37 +3,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';import NavBar from './components/N
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 // import ComponenteTest from './components/Tareas/ComponenteTest';
 // import TestPromesas from './components/Tareas/TestPromesas';
-import { useState } from 'react';
-import TestFetchAPI from './components/Tareas/TestFetchAPI';
+//import TestFetchAPI from './components/Tareas/TestFetchAPI';
+import { useEffect, useState } from 'react';
+import { Container, Spinner } from 'react-bootstrap';
 
 function App() {
-  const data = [{
-      Key: 1, 
-      Desc:"Producto 1",
-      Img: "1.jpg",
-      Stock: 12
-  },{
-      Key: 2, 
-      Desc:"Producto 2",
-      Img: "2.jpg",
-      Stock: 23
-  },{
-      Key: 3, 
-      Desc:"Producto 3",
-      Img: "3.jpg",
-      Stock: 34
-  },{
-      Key: 4, 
-      Desc:"Producto 4",
-      Img: "4.jpg",
-      Stock: 45
-  },{
-      Key: 5,
-      Desc:"Producto 5",
-      Img: "5.jpg",
-      Stock: 56
-  }];
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [result, setResult] = useState([]);
   const [cantCarrito, setCantCarrito] = useState(0);
+
+  const getData = async() => {
+    try {
+      const data = await fetch("/Data/Productos.json")
+      const res = new Promise((respuesta, rechazo) => {
+          setTimeout(() => {
+            respuesta(data.json());
+          }, 3000)
+      });
+
+      res.then((respuesta) => {
+          console.log(respuesta);
+          setResult(respuesta);
+      }).catch((error) => {
+          setError(true);
+      }).finally(() => {
+          setLoading(false);
+      })
+
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
 
   return (
     <div className="App">
@@ -41,10 +46,29 @@ function App() {
       {/*
         <ComponenteTest />
         <TestPromesas />
+        <TestFetchAPI />
       */}
-      <TestFetchAPI />
-      <ItemListContainer grettings={data} 
-                         setCantCarrito={setCantCarrito} />
+      <Container>
+            {
+                loading ?
+                <Container>
+                  <br/>
+                  <br/>
+                  <Spinner animation="border" role="status" variant="info">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </Container> :
+                <div>
+                    {
+                        error ?
+                        "There was an error inthe Payment" :
+                        <ItemListContainer grettings={result} 
+                                           setCantCarrito={setCantCarrito} />
+                    }
+                </div>
+            }
+        </Container>
+      
       {/* <header className="App-header">
         <img src="/logo.png" className="App-logo" alt="logo" />
         <p>
