@@ -3,7 +3,7 @@ import { Container, Spinner } from "react-bootstrap";
 import { useParams } from 'react-router-dom';
 import ItemDetail from "../ItemDetail/ItemDetail";
 
-function ItemDetailContainer({setCantCarrito}) {
+function ItemDetailContainer() {
     const { key } = useParams();
 
     const [loading, setLoading] = useState(true);
@@ -53,8 +53,7 @@ function ItemDetailContainer({setCantCarrito}) {
                     {
                         error ?
                         "Ocurrio un Error al Cargar Los Productos" :
-                        <ItemDetail item={ result }
-                                    setCantCarrito={ setCantCarrito }/>
+                        <ItemDetail item={ result }/>
                     }
                 </div>
             }

@@ -1,6 +1,7 @@
+import { useContext } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
 
-function ItemDetail({item, setCantCarrito}) {
+function ItemDetail({item}) {
 
     return (
         <div key={item.Key}
@@ -13,8 +14,7 @@ function ItemDetail({item, setCantCarrito}) {
                  alt='...'
                  style={{ maxWidth: '24rem' }} />
                  <ItemCount stockInicial={item.Stock} 
-                            inicial={1} 
-                            onAdd={setCantCarrito}/>
+                            inicial={1}/>
             <small>El Stock Disponible es: {item.Stock}</small>
         </div>
     );
