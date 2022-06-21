@@ -5,7 +5,7 @@ import { cartContext } from "../Context/CartContext"
 import { useContext } from "react";
 
 function NavBar() {
-    const {cantCarrito, setCantCarrito} = useContext(cartContext);
+    const { cantCarrito } = useContext(cartContext);
 
     return (
         <>

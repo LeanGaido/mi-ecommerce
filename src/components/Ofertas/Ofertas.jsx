@@ -2,7 +2,7 @@ import { Container, Spinner } from "react-bootstrap";
 import { useEffect, useState } from 'react';
 import ItemListContainer from '../ItemListContainer/ItemListContainer';
 
-function Ofertas(setCantCarrito) {
+function Ofertas() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [result, setResult] = useState([]);
@@ -49,8 +49,7 @@ function Ofertas(setCantCarrito) {
                     {
                         error ?
                         "Ocurrio un Error al Cargar Los Productos" :
-                        <ItemListContainer grettings={result} 
-                                        setCantCarrito={setCantCarrito} />
+                        <ItemListContainer grettings={ result } />
                     }
                 </div>
             }

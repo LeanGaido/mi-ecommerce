@@ -3,10 +3,10 @@ import { Button, Container } from "react-bootstrap";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { cartContext } from "../../Context/CartContext"
 
-function ItemCount({stockInicial, inicial}) {
+function ItemCount({item, inicial}) {
     const [contador, setContador] = useState(inicial);
-    const [stock, setStock] = useState(stockInicial);
-    const {cantCarrito, setCantCarrito} = useContext(cartContext);
+    const [stock, setStock] = useState(item.Stock);
+    const { addItem } = useContext(cartContext);
 
     useEffect(() => {
         if(contador > stock) {
@@ -19,7 +19,11 @@ function ItemCount({stockInicial, inicial}) {
     }, [contador])
 
     const fc = () => {
-        setCantCarrito(cantCarrito => cantCarrito + contador);
+        addItem({ 
+                    Key: item.Key, 
+                    Desc: item.Desc, 
+                    Quantity: contador 
+                }, contador);
         setStock(stockActual => stockActual - contador);
     }
 

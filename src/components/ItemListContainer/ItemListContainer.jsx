@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import ItemList from "../ItemList/ItemList";
 import './ItemListContainer.css';
 
-function ItemListContainer({setCantCarrito}) {
+function ItemListContainer() {
     const { categoria } = useParams();
 
     const [loading, setLoading] = useState(true);
@@ -57,8 +57,7 @@ function ItemListContainer({setCantCarrito}) {
                         error ?
                         "Ocurrio un Error al Cargar Los Productos" :
                         <div className="Items-Container">
-                            <ItemList grettings= {result}
-                                      setCantCarrito= {setCantCarrito}/>
+                            <ItemList grettings= { result }/>
                         </div>
                     }
                 </div>

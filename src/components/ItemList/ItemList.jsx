@@ -1,13 +1,12 @@
 import Item from "../Item/Item";
 
-function ItemList({grettings, setCantCarrito}) {
+function ItemList({ grettings }) {
 
     return (
         grettings.map(item => {
             return (
-                <Item key={item.Key}
-                      item= {item}
-                      setCantCarrito= {setCantCarrito}/>
+                <Item key={ item.Key }
+                      item= { item }/>
             );
         })
     );

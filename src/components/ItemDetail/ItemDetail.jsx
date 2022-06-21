@@ -13,7 +13,7 @@ function ItemDetail({item}) {
                  className='img-thumbnail'
                  alt='...'
                  style={{ maxWidth: '24rem' }} />
-                 <ItemCount stockInicial={item.Stock} 
+                 <ItemCount item={item} 
                             inicial={1}/>
             <small>El Stock Disponible es: {item.Stock}</small>
         </div>
