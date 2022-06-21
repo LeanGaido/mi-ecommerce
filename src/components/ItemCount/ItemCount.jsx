@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import { myContext } from "../../App.js"
+import { cartContext } from "../../Context/CartContext"
 
 function ItemCount({stockInicial, inicial}) {
     const [contador, setContador] = useState(inicial);
     const [stock, setStock] = useState(stockInicial);
-    const {cantCarrito, setCantCarrito} = useContext(myContext);
+    const {cantCarrito, setCantCarrito} = useContext(cartContext);
 
     useEffect(() => {
         if(contador > stock) {
