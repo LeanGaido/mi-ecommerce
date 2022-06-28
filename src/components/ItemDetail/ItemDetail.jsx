@@ -4,7 +4,7 @@ import ItemCount from '../ItemCount/ItemCount';
 function ItemDetail({item}) {
 
     return (
-        <div key={item.Key}
+        <div key={item.Id}
              className="Item">
             <h2>{item.Desc}</h2>
             <small>Precio: ${item.Precio}</small>

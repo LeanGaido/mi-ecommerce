@@ -19,9 +19,13 @@ function ItemCount({item, inicial}) {
     }, [contador])
 
     const fc = () => {
-        addItem({ 
-                    Key: item.Key, 
+        addItem({
+                    Key: item.Key,
                     Desc: item.Desc, 
+                    Img: item.Img, 
+                    Stock: item.Stock, 
+                    Precio: item.Precio, 
+                    Categoria: item.Categoria, 
                     Quantity: contador 
                 }, contador);
         setStock(stockActual => stockActual - contador);

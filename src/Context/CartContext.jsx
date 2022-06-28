@@ -23,18 +23,37 @@ function CartContext({ children }) {
         }
     }
 
-    function AddItem(item, quantity) {
+    function ModifyQuantity(itemKey, quantity){
+        var index = isInCart(itemKey);
+        if(index !== -1) {
+            if(quantity > 0 || itemsCarrito[index].Quantity > 1) {
+                itemsCarrito[index].Quantity += quantity;
+            } else {
+                removeFullItem(itemKey)
+            }
+        }
+    }
+
+    function addItem(item, quantity) {
         var index = isInCart(item.Key);
         var array = [...itemsCarrito];
         if(index === -1) {
             array.push(item)
             setItemCarrito(array);
         } else {
-            itemsCarrito[index].Quantity += quantity;
+            ModifyQuantity(item.Key, quantity);
         }
     }
 
-    function RemoveItem(itemKey) {
+    function addOneItem(itemKey) {
+        ModifyQuantity(itemKey, 1);
+    }
+
+    function removeOneItem(itemKey) {
+        ModifyQuantity(itemKey, -1);
+    }
+
+    function removeFullItem(itemKey) {
         var array = [...itemsCarrito];
         var index = isInCart(itemKey);
         if(index !== -1) {
@@ -47,8 +66,11 @@ function CartContext({ children }) {
         <cartContext.Provider value={ {
             cantCarrito: itemsCarrito.length,
             isInCart: isInCart,
-            addItem: AddItem,
-            removeItem: RemoveItem
+            addItem: addItem,
+            addOneItem: addOneItem,
+            removeOneItem: removeOneItem,
+            removeFullItem: removeFullItem,
+            itemsCarrito: itemsCarrito
         } }>
             {children}
         </cartContext.Provider>

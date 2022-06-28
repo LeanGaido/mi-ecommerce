@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Item({item}) {
 
     return (
-        <div key={item.Key}
+        <div key={item.Id}
              className="Item">
             <h2>{item.Desc}</h2>
             <img key={item.Img}
@@ -12,7 +12,7 @@ function Item({item}) {
                  className='img-thumbnail'
                  alt='...'
                  style={{ maxWidth: '24rem' }} />
-                 <Link to={`/Producto/${item.Key}`}>
+                 <Link to={`/Producto/${item.Id}`}>
                     Ver Detalle
                  </Link>
             <small>El Stock Disponible es: {item.Stock}</small>

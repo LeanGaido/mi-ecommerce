@@ -3,6 +3,10 @@ import { Container, Spinner } from "react-bootstrap";
 import { useParams } from 'react-router-dom';
 import ItemList from "../ItemList/ItemList";
 import './ItemListContainer.css';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
 
 function ItemListContainer() {
     const { categoria } = useParams();
@@ -10,35 +14,44 @@ function ItemListContainer() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [result, setResult] = useState([]);
+      
+    // Initialize Firebase
+    const app = initializeApp({
+        apiKey: "AIzaSyBx2-rckKzJJrQY_P_6f4ffyIreRlv0FeQ",
+        authDomain: "abstract-mode-334421.firebaseapp.com",
+        projectId: "abstract-mode-334421",
+        storageBucket: "abstract-mode-334421.appspot.com",
+        messagingSenderId: "765009979449",
+        appId: "1:765009979449:web:e70d64445dcbdaff9c05e8",
+        measurementId: "G-M8GRSPJ2GM"
+    });
 
-    const getData = async(_categoria) => {
+    const analytics = getAnalytics(app);
+
+    useEffect(() => {
         setLoading(true);
         setResult([]);
 
-        try {
-            const data = await fetch("/Data/Productos.json")
-            const res = new Promise((respuesta, rechazo) => {
-                setTimeout(() => {
-                    respuesta(data.json());
-                }, 3000)
-            });
-
-            res.then((respuesta) => {
-                console.log(_categoria);
-                setResult(respuesta.filter(item => _categoria === undefined ||
-                                                   item.Categoria == _categoria));
-            }).catch((error) => {
-                setError(true);
-            }).finally(() => {
-                setLoading(false);
-            })
-        } catch (error) {
-        
+        const _db = getFirestore();
+        var _query;
+        if(categoria !== undefined){
+            console.log(categoria);
+            _query = query(collection(_db, "productos"), where("Categoria", "==", categoria));
+        } else {
+            console.log("No filtro");
+            _query = query(collection(_db, "productos"));
         }
-    }
-
-    useEffect(() => {
-      getData(categoria);
+        
+        getDocs(_query).then((snapshot) => {
+            setResult(snapshot.docs.map((doc) => ({ Id: doc.id, ...doc.data() })));
+        })
+        .catch((error) => {
+            console.log(error);
+            setError(true);
+        }).finally(() => {
+            console.log(result);
+            setLoading(false);
+        });
     }, [categoria])
 
     return (

@@ -5,7 +5,7 @@ function ItemList({ grettings }) {
     return (
         grettings.map(item => {
             return (
-                <Item key={ item.Key }
+                <Item Id={ item.Id }
                       item= { item }/>
             );
         })
